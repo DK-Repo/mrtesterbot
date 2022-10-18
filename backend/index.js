@@ -1,7 +1,7 @@
 const TelegramBot = require("node-telegram-bot-api");
 
 const token = "5507342368:AAEwWndBFT-S7H2Rt37NjNzVmyuZ_eTtzt4";
-const webAppUrl = "https://roaring-douhua-e0a2d6.netlify.app/";
+const webAppUrl = "https://roaring-douhua-e0a2d6.netlify.app";
 const bot = new TelegramBot(token, { polling: true });
 
 bot.on("message", async (message) => {
@@ -28,5 +28,19 @@ bot.on("message", async (message) => {
       },
     );
   }
-  bot.sendMessage(chatId, "Received yout message!");
+  if (text?.web_app_data?.data) {
+    try {
+      const data = JSON.parse(text?.web_app_data?.data);
+
+      await bot.sendMessage(chatId, "Спасибо за обратную связь!");
+      await bot.sendMessage(chatId, "Ваша страна: " + data?.country);
+      await bot.sendMessage(chatId, "Ваша улица: " + data?.street);
+
+      setTimeout(async () => {
+        await bot.sendMessage(chatId, "Всю информацию вы получили в этом чате");
+      }, 3000);
+    } catch (error) {
+      console.log(error);
+    }
+  }
 });

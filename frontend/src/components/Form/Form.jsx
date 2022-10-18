@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { useCallback } from "react";
 import useTelegram from "../../hooks/useTelegram";
 
 import "./Form.css";
@@ -8,6 +9,20 @@ const Form = () => {
   const [street, setStreet] = useState("");
   const [subject, setSubject] = useState("physical");
   const { tg } = useTelegram();
+
+  const onSendData = useCallback(() => {
+    const data = {
+      country,
+      street,
+      subject,
+    };
+    tg.sendData(JSON.stringify(data));
+  }, [tg, country, street, subject]);
+
+  useEffect(() => {
+    tg.onEvent("mainButtonClicked", onSendData);
+    return () => tg.offEvent("mainButtinClicked", onSendData);
+  }, [tg, onSendData]);
 
   useEffect(() => {
     tg.MainButton.setParams({
@@ -50,10 +65,10 @@ const Form = () => {
         value={street}
         onChange={onChangeStreet}
       />
-      <div className={"selector"} value={subject} onChange={onChangeSubject}>
+      <select className={"selector"} value={subject} onChange={onChangeSubject}>
         <option value={"physical"}>Физ. лицо</option>
         <option value={"legal"}>Юр. лицо</option>
-      </div>
+      </select>
     </div>
   );
 };
