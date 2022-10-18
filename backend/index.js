@@ -28,9 +28,9 @@ bot.on("message", async (message) => {
       },
     );
   }
-  if (text?.web_app_data?.data) {
+  if (message?.web_app_data?.data) {
     try {
-      const data = JSON.parse(text?.web_app_data?.data);
+      const data = JSON.parse(message?.web_app_data?.data);
 
       await bot.sendMessage(chatId, "Спасибо за обратную связь!");
       await bot.sendMessage(chatId, "Ваша страна: " + data?.country);
