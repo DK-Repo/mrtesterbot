@@ -11,7 +11,9 @@ bot.on("message", async (message) => {
   if (text === "/start") {
     await bot.sendMessage(chatId, "Ниже появится кнопка, заполни форму", {
       reply_markup: {
-        keyboard: [[{ text: "Заполни форму", web_app: { url: webAppUrl } }]],
+        keyboard: [
+          [{ text: "Заполни форму", web_app: { url: webAppUrl + "/form" } }],
+        ],
       },
     });
     await bot.sendMessage(
