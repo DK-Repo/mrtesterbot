@@ -21,7 +21,7 @@ const Form = () => {
 
   useEffect(() => {
     tg.onEvent("mainButtonClicked", onSendData);
-    return () => tg.offEvent("mainButtinClicked", onSendData);
+    return () => tg.offEvent("mainButtonClicked", onSendData);
   }, [tg, onSendData]);
 
   useEffect(() => {
