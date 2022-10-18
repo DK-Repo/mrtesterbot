@@ -1,0 +1,2 @@
+- [source](https://www.youtube.com/watch?v=MzO-0IYkZMU&t=1910s)
+- paused on 31:50 / 1:00:21
